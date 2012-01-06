@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Shopping List</string>
+    <string name="label_addlist">Click to add a note</string>
+    <string name="label_dialog_addtitle">Title</string>
+    <string name="dialog_addtitle_title">Insert title</string>
+    <string name="button_calendar">Add an event to calendar</string>
+    <string name="dialog_datetime_title">Set the event\'s time and date</string>
+    <string name="button_setdate">Set date</string>
+    <string name="button_settime">Set time</string>
+    <string name="help_add_button">Click to add a new list or note</string>
+    <string name="help_view">Click to view the list</string>
+    <string name="help_edit">Click to modify the list</string>
+    <string name="help_delete">Click to delete the list</string>
+    <string name="help_save">Click to save changes. All previous changes will be overwritten</string>
+    <string name="help_cancel">Click to delete the list content</string>
+    <string name="help_calendar">Click to add an event to the calendar. Title and description fields will be filled with the list\'s data</string>
+    <string name="help_help">Long press on buttons to get help</string>
+    <string name="ask_save">Do you want save changes? The content will be overwritten</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="list_created">List created</string>
+    <string name="list_deleted">List deleted</string>
+</resources>

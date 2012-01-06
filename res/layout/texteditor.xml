@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    
+<RelativeLayout
+        android:id="@+id/activebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/relativeLayout1"
+        android:layout_alignParentLeft="true"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/button_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="  B  "
+            android:textStyle="bold" 
+            style="@android:style/Widget.Button.Small"
+            android:paddingLeft="10dp" android:paddingRight="10dp"/>
+
+        <Button
+            android:id="@+id/button_italic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/button_bold"
+            android:text="  I  "
+            android:textStyle="italic" 
+            style="@android:style/Widget.Button.Small"
+            android:paddingLeft="10dp" android:paddingRight="10dp"/>
+
+        <Button
+            android:id="@+id/button_underline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/button_italic"
+            android:text="  U  " 
+            style="@android:style/Widget.Button.Small"
+            android:paddingLeft="10dp" android:paddingRight="10dp"/>
+
+        <Button
+            android:id="@+id/button_strike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/button_underline"
+            android:text="  S  " 
+            style="@android:style/Widget.Button.Small"
+            android:paddingLeft="10dp" android:paddingRight="10dp"/>
+
+        <Button
+            android:id="@+id/button_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/button_strike"
+            android:text="Link"
+            style="@android:style/Widget.Button.Small" 
+            android:paddingLeft="10dp" android:paddingRight="10dp"/>
+
+    </RelativeLayout>
+
+<EditText
+    android:id="@+id/edittext"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentRight="true"
+    android:layout_below="@+id/activebar"
+    android:inputType="textMultiLine" android:isScrollContainer="true" android:scrollbars="vertical" android:typeface="normal" android:minLines="3" android:gravity="top|left">
+
+    <requestFocus />
+</EditText>
+
+</RelativeLayout>

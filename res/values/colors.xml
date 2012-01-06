@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="DarkOrange">#FF8C00</color>
+    <color name="VeryLightGrey">#CDCDCD</color>
+	<color name="DimGrey">#545454</color>
+	<color name="LightSkyBlue">#87CEFA</color>
+	<color name="Transparent">@android:color/transparent</color>
+	<color name="LightYellow">#FFFFE0</color>
+	<color name="DarkGreen">#006400</color>
+	<color name="DarkRed">#8B0000</color>
+</resources>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Media Note</string>
+    <string name="label_addlist">Clicca per aggiungere una nuova nota</string>
+    <string name="label_dialog_addtitle">Titolo</string>
+    <string name="dialog_addtitle_title">Inserisci il titolo</string>
+    <string name="button_calendar">Aggiungi un evento al calendario</string>
+    <string name="dialog_datetime_title">Imposta data ed ora dell\'evento</string>
+    <string name="button_setdate">Imposta data</string>
+    <string name="button_settime">Imposta ora</string>
+    <string name="help_add_button">Clicca qui per aggiungere una nuova lista</string>
+    <string name="help_view">Clicca per leggere la lista</string>
+    <string name="help_edit">Clicca per modificare la lista</string>
+    <string name="help_delete">Clicca per cancellare la lista</string>
+    <string name="help_save">Clicca per salvare le modifiche al contenuto. Tutte le modifiche precedenti verranno sovrascritte</string>
+    <string name="help_cancel">Clicca per tornare indietro senza modificare nulla</string>
+    <string name="help_calendar">Clicca per aggiungere un evento al calendario</string>
+    <string name="help_help">Tenere premuto a lungo sui pulsanti per aiuto sulla funzione</string>
+    <string name="ask_save">Vuoi salvare le modifiche? Il contenuto verrà sovrascritto.</string>
+    <string name="save">Salva</string>
+    <string name="cancel">Annulla</string>
+    <string name="list_created">Lista creata</string>
+    <string name="list_deleted">Lista cancellata</string>
+    <string name="button_read">Leggi</string>
+    <string name="button_edit">Modifica</string>
+    <string name="button_delete">Elimina</string>
+    <string name="button_add">Aggiungi nota</string>
+
+    <string name="hint_dialog_addtitle">Inserisci il titolo</string>
+    <string name="cd_dialog_addtitle">inserisci il titolo della nota</string>   
+    <string name="label_add_content">Clicca per aggiungere il contenuto</string>   
+    <string name="label_title">Titolo</string>   
+    <string name="label_content">Contenuto</string>   
+    <string name="label_texteditor">Premi il tasto INDIETRO per salvare ed uscire</string>
+</resources>
