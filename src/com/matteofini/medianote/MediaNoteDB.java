@@ -33,13 +33,13 @@ import android.provider.MediaStore.Images.Media;
 import android.text.Html;
 import android.util.Log;
 
-public class ShoppingDb{
+public class MediaNoteDB{
 	
 	private SQLiteDatabase db;
-	private ShoppingDbOpenHelper dbh;
+	private MediaNoteDbOpenHelper dbh;
 	private final Context ctx;
 	
-	private static final String NAME = "shoppingdb";
+	private static final String NAME = "medianoteDB";
 	private static final int VERSION = 1;
 	private static final String ID = "_id";
 
@@ -49,8 +49,8 @@ public class ShoppingDb{
 	private static final String TABLE_IMG = "create table images ("+ID+" integer not null references global ("+ID+") on delete cascade, uri text not null, unique (_id,uri));";
 	private static final String TABLE_LOC = "create table locations ("+ID+" integer not null references global ("+ID+") on delete cascade, loc text not null, unique (_id,loc));";
 	
-	private class ShoppingDbOpenHelper extends SQLiteOpenHelper{
-		public ShoppingDbOpenHelper(Context context) {
+	private class MediaNoteDbOpenHelper extends SQLiteOpenHelper{
+		public MediaNoteDbOpenHelper(Context context) {
 			super(context, NAME, null, VERSION);
 		}
 		
@@ -60,12 +60,12 @@ public class ShoppingDb{
 			db.execSQL(TABLE_LIST);
 			db.execSQL(TABLE_IMG);
 			db.execSQL(TABLE_LOC);
-			Log.println(Log.INFO, "ShoppingDbOpenHelper", "Shoppingdb created");
+			Log.println(Log.INFO, "MediaNoteDbOpenHelper", "medianoteDB created");
 		}
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-			Log.w("ShoppingDbOpenHelper", "Upgrading database from version " + oldVersion + " to "
+			Log.w("MediaNoteDbOpenHelper", "Upgrading database from version " + oldVersion + " to "
 	                + newVersion + ", which will destroy all old data");
 	        db.execSQL("DROP TABLE IF EXISTS global");
 	        db.execSQL("DROP TABLE IF EXISTS list");
@@ -75,13 +75,13 @@ public class ShoppingDb{
 		}
 	}
 	
-	public ShoppingDb(Context ctx){
+	public MediaNoteDB(Context ctx){
 		this.ctx = ctx;
 	}
 	
 	
-	public ShoppingDb open(){
-		dbh = new ShoppingDbOpenHelper(ctx);
+	public MediaNoteDB open(){
+		dbh = new MediaNoteDbOpenHelper(ctx);
 		db = dbh.getWritableDatabase();
 		return this;
 	}

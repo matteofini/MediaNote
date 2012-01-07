@@ -54,7 +54,7 @@ public class ShowList extends MediaNoteAbs{
 		Intent i = getIntent();
 		final long rowid = i.getExtras().getLong("id");
 		Log.i("ShowList", "Show list with _id "+rowid);
-		final ShoppingDb db = new ShoppingDb(ShowList.this);
+		final MediaNoteDB db = new MediaNoteDB(ShowList.this);
         db.open();
         mNote = new Note();
         db.getAllContent(rowid, mNote, getApplicationContext());
@@ -170,7 +170,7 @@ public class ShowList extends MediaNoteAbs{
 			LinearLayout ll = (LinearLayout) getWindow().findViewById(R.id.container);
 			CheckedTextView text = (CheckedTextView) ll.findViewById(R.id.text);
 			text.setText(Html.fromHtml(data.getExtras().getString("text")));
-			ShoppingDb db = new ShoppingDb(getApplicationContext());
+			MediaNoteDB db = new MediaNoteDB(getApplicationContext());
 			db.open();
 			long res = db.setText(getIntent().getExtras().getLong("id"), data.getExtras().getString("text"));
 			if(res>0) Log.i("ShowList", "text updated");

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Shopping List</string>
+    <string name="app_name">Media Note</string>
     <string name="label_addlist">Click to add a note</string>
     <string name="label_dialog_addtitle">Title</string>
     <string name="dialog_addtitle_title">Insert title</string>

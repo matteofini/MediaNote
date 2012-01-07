@@ -98,7 +98,7 @@ public class EditList extends MediaNoteAbs {
 		mNote = new Note();
 		
 		final long rowid = getIntent().getExtras().getLong("id");
-		ShoppingDb db = new ShoppingDb(EditList.this);
+		MediaNoteDB db = new MediaNoteDB(EditList.this);
 		db.open();
 		db.getAllContent(rowid, mNote, getApplicationContext());
 		View ll = getLayoutInflater().inflate(R.layout.edit,null);
@@ -163,7 +163,7 @@ public class EditList extends MediaNoteAbs {
 			@Override
 			public void onClick(View v) {
 				VV.vibrate(50);
-				ShoppingDb db = new ShoppingDb(EditList.this);
+				MediaNoteDB db = new MediaNoteDB(EditList.this);
 				db.open();
 				long _id = getIntent().getExtras().getLong("id");
 				

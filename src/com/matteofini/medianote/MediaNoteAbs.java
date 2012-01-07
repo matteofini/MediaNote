@@ -50,7 +50,7 @@ import android.widget.TextView;
 public abstract class MediaNoteAbs extends Activity{
 	
 	protected void deleteLocation(long _id, Location loc){
-		ShoppingDb db = new ShoppingDb(getApplicationContext());
+		MediaNoteDB db = new MediaNoteDB(getApplicationContext());
 		db.open();
 		int res = db.deleteLocation(_id, loc);
 		db.close();
@@ -60,7 +60,7 @@ public abstract class MediaNoteAbs extends Activity{
 	}
 	
 	protected void deleteText(){
-		ShoppingDb db = new ShoppingDb(getApplicationContext());
+		MediaNoteDB db = new MediaNoteDB(getApplicationContext());
 		db.open();
 		long _id = getIntent().getExtras().getLong("id");
 		int res = db.deleteText(_id);
@@ -72,7 +72,7 @@ public abstract class MediaNoteAbs extends Activity{
 	}
 	
 	protected void deleteImage(long _id, final Uri uri){
-		ShoppingDb db = new ShoppingDb(getApplicationContext());
+		MediaNoteDB db = new MediaNoteDB(getApplicationContext());
 		db.open();
 		//int res = db.deleteImage(_id, uri);
 		db.close();

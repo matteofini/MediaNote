@@ -70,7 +70,7 @@ public class MediaNote extends ListActivity {
 			}
 		});
         
-        ShoppingDb db = new ShoppingDb(MediaNote.this);
+        MediaNoteDB db = new MediaNoteDB(MediaNote.this);
         db.open();
         mCursor = db.getList();
         startManagingCursor(mCursor);
@@ -148,7 +148,7 @@ public class MediaNote extends ListActivity {
 					menu.getItem(2).setOnMenuItemClickListener(new OnMenuItemClickListener() {
 						@Override
 						public boolean onMenuItemClick(MenuItem item) {
-							ShoppingDb db = new ShoppingDb(getApplicationContext());
+							MediaNoteDB db = new MediaNoteDB(getApplicationContext());
 							db.open();
 							db.cloneListAndContent(c.getLong(0));
 							db.close();
@@ -177,12 +177,12 @@ public class MediaNote extends ListActivity {
     	}
     	
     	private void delete(long id){
-    		ShoppingDb shoppingDB = new ShoppingDb(MediaNote.this);
-	        shoppingDB.open();
-	        int res = shoppingDB.deleteList(id);
+    		MediaNoteDB db = new MediaNoteDB(MediaNote.this);
+	        db.open();
+	        int res = db.deleteList(id);
 	        Toast.makeText(getApplicationContext(), getResources().getString(R.string.list_deleted), Toast.LENGTH_SHORT).show();
-	        if(res>0) Log.i("Shopping List", "list with id "+id+" deleted");
-	        shoppingDB.close();
+	        if(res>0) Log.i("MediaNote", "list with id "+id+" deleted");
+	        db.close();
 	        mCursor.requery();
 	        setListAdapter(new MyAdapter(MediaNote.this, R.layout.item, mCursor, new String[]{"title", "date", "summary"}, new int[]{R.id.item_title, R.id.item_date, R.id.item_preview}));
     	}
@@ -212,7 +212,7 @@ public class MediaNote extends ListActivity {
 					EditText edit = (EditText) ll.findViewById(R.id.edit_addtitle);
 					String str = edit.getText().toString();
 					if(!str.equals("")){
-						ShoppingDb db = new ShoppingDb(getApplicationContext());
+						MediaNoteDB db = new MediaNoteDB(getApplicationContext());
 						db.open();
 						long id = db.addList(str);
 						db.close();
