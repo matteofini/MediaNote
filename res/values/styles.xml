@@ -7,16 +7,19 @@
         <item name="android:hapticFeedbackEnabled">true</item>
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
         <item name="android:textColor">@color/LightSkyBlue</item>
+        <item name="android:typeface">sans</item>
     </style>
     <style name="preview" parent="android:Widget.TextView">
         <item name="android:hapticFeedbackEnabled">true</item>
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
         <item name="android:textColor">#fafafa</item>
+        <item name="android:typeface">sans</item>
     </style>
     <style name="title">
         <item name="android:hapticFeedbackEnabled">true</item>
         <item name="android:maxLines">2</item>
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
         <item name="android:textColor">@color/LightSkyBlue</item>
+        <item name="android:typeface">sans</item>
     </style>
 </resources>

@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:focusable="false">
+    android:focusable="false"
+    android:gravity="center_horizontal" android:background="#ff000000" style="@android:style/Theme.Translucent">
 
     <ListView
         android:id="@android:id/list"
@@ -12,7 +13,7 @@
         android:contentDescription="lista delle note"
         android:fadeScrollbars="true"
         android:fadingEdge="none"
-        android:focusable="false" >
+        android:focusable="false">
 
         <!-- Preview: listitem=@layout/item -->
 
@@ -32,7 +33,6 @@
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:layout_below="@id/button_addlist"
-        android:layout_marginBottom="10dp"
         android:background="@color/LightSkyBlue" />
 
 </RelativeLayout>

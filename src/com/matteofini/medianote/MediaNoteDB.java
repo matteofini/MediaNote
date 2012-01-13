@@ -29,6 +29,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.location.Location;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore.Images.Media;
 import android.text.Html;
 import android.util.Log;
@@ -51,7 +52,7 @@ public class MediaNoteDB{
 	
 	private class MediaNoteDbOpenHelper extends SQLiteOpenHelper{
 		public MediaNoteDbOpenHelper(Context context) {
-			super(context, NAME, null, VERSION);
+			super(context, Environment.getExternalStorageDirectory().getAbsolutePath()+"/"+NAME, null, VERSION);
 		}
 		
 		@Override

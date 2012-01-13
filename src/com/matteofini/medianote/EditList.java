@@ -20,6 +20,9 @@ package com.matteofini.medianote;
 
 import android.content.ComponentName;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Location;
 import android.location.LocationListener;
@@ -29,7 +32,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.provider.MediaStore;
+import android.provider.MediaStore.Images.Media;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
@@ -51,6 +54,7 @@ public class EditList extends MediaNoteAbs {
 	private Vibrator VV;
 	public static final int ACTIVITY_RESULT_TEXT = 1001;
 	public static final int ACTIVITY_RESULT_PHOTO = 1002;
+	
 	
 	private LocationListener loclis = new LocationListener() {
 		@Override
@@ -86,21 +90,29 @@ public class EditList extends MediaNoteAbs {
 			loc_label.setText(line+" - "+addr.getCountryName());
 			//Address[addressLines=[0:"Via Alfredo Catalani, 15",1:"40069 Zola Predosa BO",2:"Italia"],feature=15,admin=Emilia Romagna,sub-admin=Bologna,locality=Zola Predosa,thoroughfare=Via Alfredo Catalani,postalCode=40069,countryCode=IT,countryName=Italia,hasLatitude=true,latitude=44.482682,hasLongitude=true,longitude=11.2435482,phone=null,url=null,extras=null]			
 			content.addView(rl_loc);
+			//saveLocation(getIntent().getExtras().getLong("id"), location);
 			LM.removeUpdates(this);
 		}
 	};
+	
+	public Object onRetainNonConfigurationInstance() {
+		return mNote;
+	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);	
 		LM = (LocationManager) getSystemService(LOCATION_SERVICE);
 		VV = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-		mNote = new Note();
 		
 		final long rowid = getIntent().getExtras().getLong("id");
 		MediaNoteDB db = new MediaNoteDB(EditList.this);
 		db.open();
-		db.getAllContent(rowid, mNote, getApplicationContext());
+		mNote = (Note) getLastNonConfigurationInstance();
+        if(mNote==null){
+        	mNote = new Note();
+			db.getAllContent(rowid, mNote, getApplicationContext());
+        }
 		View ll = getLayoutInflater().inflate(R.layout.edit,null);
 		
 		//title & date
@@ -149,7 +161,7 @@ public class EditList extends MediaNoteAbs {
     	}
     	for(Uri uri : mNote.getImgList()){
     		ImageView img = (ImageView) getLayoutInflater().inflate(R.layout.image, null);
-			img.setImageURI(uri);
+    		img.setImageBitmap(getScaledBitmap(uri));
     		img.setScaleType(ImageView.ScaleType.CENTER_CROP);
     		img.setAdjustViewBounds(true);
     		content.addView(img);
@@ -220,7 +232,8 @@ public class EditList extends MediaNoteAbs {
 			startActivityForResult(i, ACTIVITY_RESULT_TEXT);
 		break;}
 		case 2:{
-			Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+			Intent i = new Intent("android.media.action.IMAGE_CAPTURE");
+            //Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 			startActivityForResult(i, ACTIVITY_RESULT_PHOTO);
 		break;}
 		case 3:{
@@ -254,7 +267,7 @@ public class EditList extends MediaNoteAbs {
 			ImageView img = (ImageView) getLayoutInflater().inflate(R.layout.image, null);
 			img.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
     		img.setAdjustViewBounds(true);
-    		img.setImageURI(uri);
+    		img.setImageBitmap(getScaledBitmap(uri));
 			img.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {

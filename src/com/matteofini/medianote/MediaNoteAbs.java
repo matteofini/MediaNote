@@ -30,6 +30,8 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -54,7 +56,7 @@ public abstract class MediaNoteAbs extends Activity{
 		db.open();
 		int res = db.deleteLocation(_id, loc);
 		db.close();
-		if(res>0) Log.i("deleteLocation", "location "+loc.toString()+" in list "+_id);
+		if(res>0) Log.i("deleteLocation", "location deleted in list "+_id);
 		LinearLayout rl = (LinearLayout) getWindow().getDecorView().findViewById(R.id.container);
 		rl.removeView(rl.findViewWithTag(loc));
 	}
@@ -74,9 +76,9 @@ public abstract class MediaNoteAbs extends Activity{
 	protected void deleteImage(long _id, final Uri uri){
 		MediaNoteDB db = new MediaNoteDB(getApplicationContext());
 		db.open();
-		//int res = db.deleteImage(_id, uri);
+		int res = db.deleteImage(_id, uri);
 		db.close();
-		//if(res>0) Log.i("deleteImage", "deleted image "+uri.toString()+" in list with _id "+_id);
+		if(res>0) Log.i("deleteImage", "deleted image "+uri.toString()+" in list with _id "+_id);
 		AlertDialog d = new AlertDialog.Builder(MediaNoteAbs.this).create();
 		d.setTitle("Conferma cancellazione");
 		d.setMessage("Vuoi cancellare l'immagine anche dalla memoria del telefono?");
@@ -86,7 +88,8 @@ public abstract class MediaNoteAbs extends Activity{
 				Cursor c = Media.query(getContentResolver(), uri, new String[]{"_data"}, null, null, null);
 				c.moveToFirst();
 				File f = new File(c.getString(0));
-				f.delete();
+				if(f.delete())
+					Log.i("deleteImage", f.getAbsolutePath()+" deleted");
 			}
 		});
 		d.setButton(DialogInterface.BUTTON_NEGATIVE, "NO", new OnClickListener() {
@@ -156,16 +159,19 @@ public abstract class MediaNoteAbs extends Activity{
 		}
 	};
 	
-	OnCreateContextMenuListener create_cmenu_img(final long rowid, final Uri uri){
+	OnCreateContextMenuListener create_cmenu_img(long rowid, Uri uri){
+		final long a = rowid;
+		final Uri b = uri;
 		OnCreateContextMenuListener cmenu_img = new OnCreateContextMenuListener() {
 			@Override
 			public void onCreateContextMenu(ContextMenu menu, View v,
 					ContextMenuInfo menuInfo) {
+				Log.d("create_cmenu_img", "_"+a+"  "+b.toString());
 				menu.add("elimina immagine");
 				menu.getItem(0).setOnMenuItemClickListener(new OnMenuItemClickListener() {
 					@Override
 					public boolean onMenuItemClick(MenuItem arg0) {
-						deleteImage(rowid, uri);
+						deleteImage(a, b);
 						return true;
 					}
 				});
@@ -199,5 +205,32 @@ public abstract class MediaNoteAbs extends Activity{
 		i.putExtra("text", Html.toHtml((Spanned)text.getText()));
 		i.setComponent(new ComponentName("com.matteofini.medianote", "com.matteofini.medianote.TextEditor"));
 		startActivityForResult(i, EditList.ACTIVITY_RESULT_TEXT);
+	}
+
+	
+	protected void saveLocation(long _id, Location loc){
+		MediaNoteDB db = new MediaNoteDB(getApplicationContext());
+		db.open();
+		if(!db.existsLocation(_id, loc))
+			if(db.addLocation(_id, loc)!=-1)
+				Log.i("saveLocation", "Location saved");
+	}
+	
+	protected void saveImage(long _id, Uri uri){
+		MediaNoteDB db = new MediaNoteDB(getApplicationContext());
+		db.open();
+		if(!db.existsImage(_id, uri))
+			if(db.addImage(_id, uri)!=-1)
+				Log.i("saveImage", "Image saved");
+	}
+	
+	protected Bitmap getScaledBitmap(Uri uri){
+		Cursor c = Media.query(getContentResolver(), uri, new String[]{"_data"});
+		c.moveToFirst();
+		BitmapFactory.Options opt = new BitmapFactory.Options();
+		opt.inSampleSize = 8;
+		Bitmap bm = BitmapFactory.decodeFile(c.getString(0), opt);
+		//Bitmap bm = Bitmap.createScaledBitmap(x, x.getWidth()/2, x.getHeight()/2, false);
+		return bm;
 	}
 }

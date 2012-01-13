@@ -193,19 +193,15 @@ public class MediaNote extends ListActivity {
     @Override
     protected Dialog onCreateDialog(int id) {
     	if(id==DIALOG_ADDTITLE){
+    		AlertDialog d =  new AlertDialog.Builder(MediaNote.this).create();
     		final View ll = getLayoutInflater().inflate(R.layout.dialog_addtitle, null);
-    		AlertDialog.Builder adb = new AlertDialog.Builder(this);
-    		adb.setView(ll);
-    		AlertDialog d = adb.create();
-			d.setTitle(getResources().getString(R.string.dialog_addtitle_title));
-			d.setCancelable(true);
+    		d.setTitle(getResources().getString(R.string.dialog_addtitle_title));
+    		d.setCancelable(true);
+    		d.setView(ll);
 			d.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.cancel), new DialogInterface.OnClickListener() {
 				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					dialog.dismiss();
-				}
+				public void onClick(DialogInterface dialog, int which) {dialog.dismiss();}
 			});
-			
 			d.setButton(DialogInterface.BUTTON_POSITIVE, "Ok", new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {

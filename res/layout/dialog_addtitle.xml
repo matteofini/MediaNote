@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent" android:layout_height="wrap_content"
-	android:orientation="vertical" style="@android:style/Theme.Dialog">
+    android:id="@+id/LinearLayout1"
+    style="@android:style/Theme.Dialog"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
 
-	<EditText android:layout_height="wrap_content" android:text="@string/hint_dialog_addtitle"
-		android:id="@+id/edit_addtitle" android:maxLines="1"
-		android:layout_width="match_parent" android:focusable="true" android:contentDescription="@string/cd_dialog_addtitle"
-		android:selectAllOnFocus="true"/>
+    <EditText
+        android:id="@+id/edit_addtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/cd_dialog_addtitle"
+        android:focusable="true"
+        android:lines="1"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:layout_margin="10dp" android:hint="Titolo">
+
+        <requestFocus />
+    </EditText>
 
 </LinearLayout>

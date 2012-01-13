@@ -26,6 +26,8 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Location;
 import android.net.Uri;
@@ -35,6 +37,7 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnCreateContextMenuListener;
 import android.view.ViewGroup;
 import android.widget.CheckedTextView;
 import android.widget.DatePicker;
@@ -48,6 +51,11 @@ public class ShowList extends MediaNoteAbs{
 	private Note mNote;
 	
 	@Override
+	public Object onRetainNonConfigurationInstance() {
+		return mNote;
+	}
+	
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
@@ -56,9 +64,11 @@ public class ShowList extends MediaNoteAbs{
 		Log.i("ShowList", "Show list with _id "+rowid);
 		final MediaNoteDB db = new MediaNoteDB(ShowList.this);
         db.open();
-        mNote = new Note();
-        db.getAllContent(rowid, mNote, getApplicationContext());
-        
+        mNote = (Note)getLastNonConfigurationInstance();
+        if(mNote==null){
+        	mNote = new Note();
+        	db.getAllContent(rowid, mNote, getApplicationContext());
+		}
         if(mNote.isEmpty()){	
         	Intent i1 = new Intent();
         	i1.putExtra("id", rowid);
@@ -119,9 +129,9 @@ public class ShowList extends MediaNoteAbs{
         		registerForContextMenu(rl_loc);
         		rl_loc.findViewById(R.id.loc_label).setOnCreateContextMenuListener(create_cmenu_loc(rowid, loc));
         	}
-        	for(final Uri uri : mNote.getImgList()){
+        	for(Uri uri : mNote.getImgList()){
         		ImageView img = (ImageView) getLayoutInflater().inflate(R.layout.image, null);
-        		img.setImageURI(uri);
+        		img.setImageBitmap(getScaledBitmap(uri));
         		img.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         		img.setAdjustViewBounds(true);
         		img.setTag(uri.toString());
@@ -135,8 +145,9 @@ public class ShowList extends MediaNoteAbs{
 				});
         		container.addView(img);
         		
-        		registerForContextMenu(img);
-        		img.setOnCreateContextMenuListener(create_cmenu_img(rowid, uri));
+        		//registerForContextMenu(img);
+        		OnCreateContextMenuListener ocl = create_cmenu_img(rowid, uri);
+        		img.setOnCreateContextMenuListener(ocl);
         	}
 
         	View b_cal = rl.findViewById(R.id.button_calendar);
