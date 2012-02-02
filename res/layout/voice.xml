@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/location"
+    android:id="@+id/voice"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#d5d6d7"
-    android:orientation="horizontal" android:paddingTop="20dp" android:paddingBottom="20dp">
-
+    android:orientation="horizontal"
+    android:paddingBottom="20dp"
+    android:paddingTop="20dp" >
+
     <CheckedTextView
-        android:id="@+id/loc_label"
+        android:id="@+id/voice_label"
+        style="@style/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/loc_button"
-        style="@style/text"/>
-
+        android:layout_toLeftOf="@+id/voice_button" />
+
     <ImageButton
-        android:id="@+id/loc_button"
+        android:id="@+id/voice_button"
+        style="@style/item_buttons_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:src="@drawable/ic_menu_position" style="@style/item_buttons_style"
-        android:layout_centerVertical="true"/>
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_menu_voicerec" />
 
 </RelativeLayout>

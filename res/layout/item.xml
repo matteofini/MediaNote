@@ -3,7 +3,7 @@
     android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:focusable="false" android:background="#000">
+    android:focusable="false" android:background="#fafafa">
 
     <RelativeLayout
         android:id="@+id/relativeLayout2"
@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:gravity="right"
-        android:padding="5dp" >
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/item_date"
@@ -19,8 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:layout_alignParentTop="true"/>
 
         <TextView
             android:id="@+id/item_title"
@@ -28,8 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/item_date"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:layout_below="@+id/item_date"/>
 
         <TextView
             android:id="@+id/item_preview"
@@ -51,6 +49,6 @@
         android:layout_alignParentTop="true"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
-        android:background="@color/LightSkyBlue" />
+        android:background="@color/LightSkyBlue" android:layout_marginRight="10dp"/>
 
 </RelativeLayout>

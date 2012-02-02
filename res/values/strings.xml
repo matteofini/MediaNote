@@ -31,5 +31,9 @@
     <string name="label_add_content">Clicca per aggiungere il contenuto</string>   
     <string name="label_title">Titolo</string>   
     <string name="label_content">Contenuto</string>   
-    <string name="label_texteditor">Premi il tasto INDIETRO per salvare ed uscire</string>
+    <string name="label_texteditor">premi BACK per annullare</string>
+    <string name="title_dialog_audiocapture">Parla adesso...</string>
+    <string name="label_dialog_audiocapture">premi INDIETRO per annullare</string>
+	<string name="title_dialog_audiocapture_error">Errore</string>
+	<string name="label_dialog_audiocapture_error">Memoria esterna non presente. Impossibile registrare.</string>
 </resources>

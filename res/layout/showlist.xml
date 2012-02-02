@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/main_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000"
-    android:isScrollContainer="true" android:padding="10dp">
+    android:isScrollContainer="true"
+    android:padding="10dp" >
 
     <TextView
         android:id="@+id/title"
@@ -20,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/title" />
-
+
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
@@ -31,13 +32,12 @@
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
         android:scrollbarAlwaysDrawVerticalTrack="true" >
-
+
         <LinearLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" >
-
         </LinearLayout>
     </ScrollView>
 
@@ -58,5 +58,19 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:src="@drawable/ic_menu_edit" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal" >
+
+        <ZoomControls
+            android:id="@+id/zoomControls1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" style="@style/item_buttons_style"/>
+    </LinearLayout>
 
 </RelativeLayout>

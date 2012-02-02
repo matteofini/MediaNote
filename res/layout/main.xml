@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/main_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusable="false"
-    android:gravity="center_horizontal" android:background="#ff000000" style="@android:style/Theme.Translucent">
+    android:gravity="center_horizontal" >
 
     <ListView
         android:id="@android:id/list"
@@ -13,7 +14,7 @@
         android:contentDescription="lista delle note"
         android:fadeScrollbars="true"
         android:fadingEdge="none"
-        android:focusable="false">
+        android:focusable="false" >
 
         <!-- Preview: listitem=@layout/item -->
 
@@ -22,7 +23,7 @@
     <ImageButton
         android:id="@+id/button_addlist"
         style="@style/item_buttons_style"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"

@@ -3,10 +3,11 @@
     <color name="DarkOrange">#FF8C00</color>
     <color name="VeryLightGrey">#CDCDCD</color>
 	<color name="DimGrey">#545454</color>
-	<color name="LightSkyBlue">#00c6ff</color>
+	<color name="LightSkyBlue">#00a6ff</color>
 	<color name="DarkSkyBlue">#00c600</color>
 	<color name="Transparent">@android:color/transparent</color>
 	<color name="LightYellow">#FFFFE0</color>
 	<color name="DarkGreen">#006400</color>
 	<color name="DarkRed">#8B0000</color>
+	<color name="DarkGray">#ff8a8a8a</color>
 </resources>

@@ -34,6 +34,7 @@ public class Note {
 	private List<Uri> mImgURI;
 	private List<Location> mLoc;
 	private Date mDate;
+	private List<Uri> mVoicerec;
 	// voice recording?
 
 	public Note() {
@@ -41,6 +42,7 @@ public class Note {
 		mTitle="";
 		mImgURI=new ArrayList<Uri>(0);
 		mLoc=new ArrayList<Location>(0);
+		mVoicerec = new ArrayList<Uri>(0);
 	}
 	
 	public Note(String title, Spanned text, List<Uri> images, List<Location> positions) {
@@ -90,6 +92,32 @@ public class Note {
 	
 	public Uri getImgAtPosition(int i){
 		return mImgURI.get(i);
+	}
+	
+	/** voicerec **/
+	
+	public void setVoicerecList(List<Uri> l){
+		mVoicerec = l;
+	}
+	
+	public List<Uri> getVoicerecList() {
+		return mVoicerec;
+	}
+
+	public void addVoicerec(Uri uri){
+		mVoicerec.add(uri);
+	}
+	
+	public Uri removeVoicerec(int index){
+		 return mVoicerec.remove(index);
+	}
+	
+	public int getVoicerecPosition(Uri uri){
+		return mVoicerec.indexOf(uri);
+	}
+	
+	public Uri getVoicerecAtPosition(int i){
+		return mVoicerec.get(i);
 	}
 	
 	/** locations **/

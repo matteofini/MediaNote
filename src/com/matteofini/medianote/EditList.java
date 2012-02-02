@@ -18,21 +18,22 @@
  */
 package com.matteofini.medianote;
 
+import java.util.Date;
+
+import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.MediaRecorder;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Vibrator;
-import android.provider.MediaStore.Images.Media;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
@@ -43,9 +44,11 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class EditList extends MediaNoteAbs {
@@ -54,7 +57,8 @@ public class EditList extends MediaNoteAbs {
 	private Vibrator VV;
 	public static final int ACTIVITY_RESULT_TEXT = 1001;
 	public static final int ACTIVITY_RESULT_PHOTO = 1002;
-	
+	public static final int ACTIVITY_RESULT_AUDIO = 1003;
+	public static final int DIALOG_VOICEREC = 2004;
 	
 	private LocationListener loclis = new LocationListener() {
 		@Override
@@ -65,7 +69,7 @@ public class EditList extends MediaNoteAbs {
 		public void onProviderDisabled(String provider) {}
 		@Override
 		public void onLocationChanged(final Location location) {
-			System.out.println("\t\t"+location.getLatitude()+" "+location.getLongitude());
+			Log.i("LocationListener", location.getLatitude()+" "+location.getLongitude());
 			LinearLayout content = (LinearLayout) getWindow().getDecorView().findViewById(R.id.container);
 			RelativeLayout rl_loc = (RelativeLayout) getLayoutInflater().inflate(R.layout.location, null);
 			mNote.addLocation(new Location(location));
@@ -121,51 +125,23 @@ public class EditList extends MediaNoteAbs {
     	
     	db.close();
     	LinearLayout content = (LinearLayout) ll.findViewById(R.id.container);
+    	
     	if(!mNote.getText().toString().equals("")){
-    		RelativeLayout rl_text = (RelativeLayout) getLayoutInflater().inflate(R.layout.text, null);
-    		CheckedTextView text = (CheckedTextView) rl_text.findViewById(R.id.text);
-    		text.setText(mNote.getText());
-    		text.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					callTextEditor();
-				}
-			});
-    		registerForContextMenu(text);
-    		text.setOnCreateContextMenuListener(cmenu_text_edit);
-    		content.addView(rl_text);
+    		ViewGroup text = layout_add_text(content, mNote.getText());
+        	content.addView(text);
     	}
+    	
     	for(final Location loc : mNote.getLocationsList()){
-    		final RelativeLayout rl_loc = (RelativeLayout) getLayoutInflater().inflate(R.layout.location, null);
-    		OnClickListener loc_click = new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					Intent i = new Intent(Intent.ACTION_VIEW);
-					i.setData(Uri.parse("geo:"+loc.getLatitude()+","+loc.getLongitude()+"?z=13"));
-					startActivity(i);
-				}
-			};
-			rl_loc.findViewById(R.id.loc_button).setOnClickListener(loc_click);
-			rl_loc.findViewById(R.id.loc_label).setOnClickListener(loc_click);
-			
-			Address addr = reverseGeolocation(loc);
-			CheckedTextView loc_label = (CheckedTextView) rl_loc.findViewById(R.id.loc_label);
-			String line="";
-			for(int j=0;j<addr.getMaxAddressLineIndex();j++){
-				line+=addr.getAddressLine(j)+" ";
-			}
-			loc_label.setText(line+" - "+addr.getCountryName());
-			//Address[addressLines=[0:"Via Alfredo Catalani, 15",1:"40069 Zola Predosa BO",2:"Italia"],feature=15,admin=Emilia Romagna,sub-admin=Bologna,locality=Zola Predosa,thoroughfare=Via Alfredo Catalani,postalCode=40069,countryCode=IT,countryName=Italia,hasLatitude=true,latitude=44.482682,hasLongitude=true,longitude=11.2435482,phone=null,url=null,extras=null]
-    		registerForContextMenu(rl_loc);
-			content.addView(rl_loc);
+    		ViewGroup location = layout_add_location(content, loc, rowid);
+			content.addView(location);
     	}
     	for(Uri uri : mNote.getImgList()){
-    		ImageView img = (ImageView) getLayoutInflater().inflate(R.layout.image, null);
-    		img.setImageBitmap(getScaledBitmap(uri));
-    		img.setScaleType(ImageView.ScaleType.CENTER_CROP);
-    		img.setAdjustViewBounds(true);
-    		content.addView(img);
-    		registerForContextMenu(img);
+    		View image = layout_add_image(content, uri, rowid);		
+    		content.addView(image);
+    	}
+    	for(Uri uri : mNote.getVoicerecList()){
+    		ViewGroup voice = layout_add_voicerec(content, uri);
+    		content.addView(voice);
     	}
     	
     	View b_save = ll.findViewById(R.id.button_save);
@@ -175,31 +151,22 @@ public class EditList extends MediaNoteAbs {
 			@Override
 			public void onClick(View v) {
 				VV.vibrate(50);
-				MediaNoteDB db = new MediaNoteDB(EditList.this);
-				db.open();
 				long _id = getIntent().getExtras().getLong("id");
 				
 				EditText title = (EditText) getWindow().getDecorView().findViewById(R.id.editlist_title);
-				if(db.setTitle(_id, title.getText().toString())>0)
-					Log.println(Log.INFO, "EditList", "title updated");
+				saveTitle(_id, title.getText().toString());
 				CheckedTextView text = (CheckedTextView) getWindow().getDecorView().findViewById(R.id.text);
-				if(text!=null && !text.getText().toString().equals("")){
-					db.setText(_id, Html.toHtml((Spanned)text.getText()));
-					Log.println(Log.INFO, "EditList", "text content updated");
-				}
+				if(text!=null && !text.getText().toString().equals(""))
+					saveText(_id, (Spanned)text.getText());
 				for(Uri uri : mNote.getImgList()){
-					if(!db.existsImage(_id, uri)){
-						if(db.addImage(_id, uri)!=-1)
-							Log.println(Log.INFO, "EditList", "added image "+uri);
-					}
+					saveImage(_id, uri);
 				}
 				for(Location loc : mNote.getLocationsList()){
-					if(!db.existsLocation(_id, loc)){
-						if(db.addLocation(_id, loc)!=-1)
-							Log.println(Log.INFO, "EditList", "added location "+loc.getLatitude()+" "+loc.getLongitude());
-					}
+					saveLocation(_id, loc);
 				}
-				db.close();
+				for(Uri uri : mNote.getVoicerecList()){
+					saveVoicerec(_id, uri);
+				}
 				Toast.makeText(getApplicationContext(), "modifiche salvate", Toast.LENGTH_SHORT).show();
 			}
 		});
@@ -230,12 +197,14 @@ public class EditList extends MediaNoteAbs {
 			i.setComponent(new ComponentName("com.matteofini.medianote", "com.matteofini.medianote.TextEditor"));
 			i.putExtra("id", getIntent().getExtras().getLong("id"));
 			startActivityForResult(i, ACTIVITY_RESULT_TEXT);
-		break;}
+		break;
+		}
 		case 2:{
 			Intent i = new Intent("android.media.action.IMAGE_CAPTURE");
             //Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 			startActivityForResult(i, ACTIVITY_RESULT_PHOTO);
-		break;}
+			break;
+		}
 		case 3:{
 			//List<String> providers = LM.getAllProviders();
 			if(!LM.isProviderEnabled("network") && !LM.isProviderEnabled("gps")){
@@ -253,11 +222,74 @@ public class EditList extends MediaNoteAbs {
 			}
 			else
 				LM.requestLocationUpdates(LocationManager.GPS_PROVIDER, Long.MAX_VALUE, Float.MAX_VALUE, loclis);
-		break;}
+			break;
+		}
+		case 4:{
+			/*
+			Intent i = new Intent(EditList.this, AudioCapture.class);
+			i.putExtra("id", getIntent().getExtras().getLong("id"));
+			startActivityForResult(i, ACTIVITY_RESULT_AUDIO);
+			*/
+			Bundle b = new Bundle();
+			b.putLong("id", getIntent().getExtras().getLong("id"));
+			showDialog(DIALOG_VOICEREC, b);
+			break;
+		}
 		default:
+			
 			break;
 		}
 		return true;
+	}
+	
+	@Override
+	protected void onPrepareDialog(int id, Dialog dialog) {
+		
+	}
+	
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		if(id==DIALOG_VOICEREC){
+			final Dialog d = new Dialog(EditList.this);
+			if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
+				d.setTitle(R.string.title_dialog_audiocapture);
+				View rl = getLayoutInflater().inflate(R.layout.dialog_audiorecord, null); 
+				d.setContentView(rl);
+				final MediaRecorder MR = new MediaRecorder();
+				try{
+					MR.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
+					MR.setOutputFormat(MediaRecorder.OutputFormat.RAW_AMR);
+					long _id = getIntent().getExtras().getLong("id");
+					final String extStorageDir = Environment.getExternalStorageDirectory().getAbsolutePath()+"/VoiceRecorder/";
+					final String name = "medianote_audio_"+_id+"_"+new Date().getTime()+".amr";
+					MR.setOutputFile(extStorageDir+name);
+					MR.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+					MR.prepare();
+					MR.start();
+
+					rl.findViewById(R.id.stop).setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View arg0) {
+							MR.stop();
+							d.dismiss();
+							LinearLayout content = (LinearLayout) getWindow().getDecorView().findViewById(R.id.container);
+							ViewGroup ll_voice = layout_add_voicerec(content, Uri.parse(extStorageDir+name));
+							mNote.addVoicerec(Uri.parse(extStorageDir+name));
+							content.addView(ll_voice);
+						}
+					});
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			else{
+				d.setTitle(R.string.title_dialog_audiocapture_error);
+				TextView tv = new TextView(this);
+				tv.setText(R.string.label_dialog_audiocapture_error);
+			}
+			return d;
+		}
+		return null;
 	}
 	
 	@Override
@@ -304,6 +336,8 @@ public class EditList extends MediaNoteAbs {
 			}
 		}
 	}
+	
+	
 	
 	
 	@Override

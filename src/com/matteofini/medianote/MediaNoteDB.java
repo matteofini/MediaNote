@@ -18,6 +18,7 @@
  */
 package com.matteofini.medianote;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -45,14 +46,16 @@ public class MediaNoteDB{
 	private static final String ID = "_id";
 
 	private static final String TABLE_GLOBAL = 
-		"create table global ("+ID+" integer primary key autoincrement, title text not null, date integer default NULL);";
-	private static final String TABLE_LIST = "create table list ("+ID+" integer primary key references global ("+ID+") on delete cascade, content text default NULL);";
-	private static final String TABLE_IMG = "create table images ("+ID+" integer not null references global ("+ID+") on delete cascade, uri text not null, unique (_id,uri));";
-	private static final String TABLE_LOC = "create table locations ("+ID+" integer not null references global ("+ID+") on delete cascade, loc text not null, unique (_id,loc));";
+		"create table if not exists global ("+ID+" integer primary key autoincrement, title text not null, date integer default NULL);";
+	private static final String TABLE_LIST = "create table if not exists list ("+ID+" integer primary key references global ("+ID+") on delete cascade, content text default NULL);";
+	private static final String TABLE_IMG = "create table if not exists images ("+ID+" integer not null references global ("+ID+") on delete cascade, uri text not null, unique (_id,uri));";
+	private static final String TABLE_LOC = "create table if not exists locations ("+ID+" integer not null references global ("+ID+") on delete cascade, loc text not null, unique (_id,loc));";
+	private static final String TABLE_VOICE = "create table if not exists voicerec ("+ID+" integer not null references global ("+ID+") on delete cascade, uri text not null, unique (_id,uri));";
+
 	
 	private class MediaNoteDbOpenHelper extends SQLiteOpenHelper{
 		public MediaNoteDbOpenHelper(Context context) {
-			super(context, Environment.getExternalStorageDirectory().getAbsolutePath()+"/"+NAME, null, VERSION);
+			super(context, Environment.getExternalStorageDirectory().getAbsolutePath()+"/data/com.matteofini.medianote/"+NAME, null, VERSION);
 		}
 		
 		@Override
@@ -61,8 +64,10 @@ public class MediaNoteDB{
 			db.execSQL(TABLE_LIST);
 			db.execSQL(TABLE_IMG);
 			db.execSQL(TABLE_LOC);
+			db.execSQL(TABLE_VOICE);
 			Log.println(Log.INFO, "MediaNoteDbOpenHelper", "medianoteDB created");
 		}
+		
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -73,6 +78,13 @@ public class MediaNoteDB{
 	        db.execSQL("DROP TABLE IF EXISTS images");
 	        db.execSQL("DROP TABLE IF EXISTS locations");
 	        onCreate(db);
+		}
+	
+		@Override
+		public void onOpen(SQLiteDatabase db) {
+			// TODO Auto-generated method stub
+			super.onOpen(db);
+			onCreate(db);
 		}
 	}
 	
@@ -276,6 +288,7 @@ public class MediaNoteDB{
 		else{
 			List<Uri> l = new ArrayList<Uri>(0);
 			for(int i=0;i<c.getCount();i++){
+				c.moveToPosition(i);
 				Cursor j = Media.query(ctx.getContentResolver(), Uri.parse(c.getString(0)), new String[]{"_data"}, null, null, null);
 				j.moveToFirst();
 				if(j.getCount()>0)
@@ -290,15 +303,75 @@ public class MediaNoteDB{
 	/**
 	 * 
 	 * @param _id
+	 * @param uri
+	 * @return the row ID of the newly inserted row, or -1 if an error occurred 
+	 */
+	public long addVoicerec(long _id, Uri uri){
+		ContentValues cv = new ContentValues();
+		cv.put("_id", _id);
+		cv.put("uri", uri.toString());
+		return db.insert("voicerec", null, cv);
+	}
+	
+	/**
+	 * 
+	 * @param _id
+	 * @param uri
+	 * @return the number of rows affected, 0 otherwise
+	 */
+	public int deleteVoicerec(long _id, Uri uri){
+		return db.delete("voicerec", "_id="+_id+" and uri='"+uri.toString()+"'", null);
+	}
+	
+	/**
+	 * 
+	 * @param the rowid of the list for search on.
+	 * @param a String rapresents the Uri of the image
+	 * @return True if the specified image exists. False otherwise.
+	 */
+	public boolean existsVoicerec(long _id, Uri uri){
+		Cursor c = db.query("voicerec", new String[]{"_id"}, "_id="+_id+" and uri='"+uri.toString()+"'", null, null, null, null);
+		c.moveToFirst();
+		return (c.getCount()>0);
+	}
+	
+	/**
+	 * 
+	 * @param _id
 	 * @param olduri
 	 * @param newuri
 	 * @return the number of rows affected 
 	 */
-	public long updateImage(long _id, Uri olduri, Uri newuri){
+	public long updateVoicerec(long _id, Uri olduri, Uri newuri){
 		ContentValues cv = new ContentValues();
 		cv.put("uri", newuri.toString());
-		return db.update("images", cv, "_id="+_id+" and uri="+olduri.toString(), null);
+		return db.update("voicerec", cv, "_id="+_id+" and uri="+olduri.toString(), null);
 	}
+	
+	/**
+	 * Query for all the Uri in the table list with the rowid specified.
+	 * @param _id
+	 * @return A List of Uri contains all the Uri associated with the list specified.
+	 */
+	public List<Uri> getVoiceRecords(long _id, Context ctx){
+		Cursor c = db.query("voicerec", new String[]{"uri"}, "_id="+_id, null, null, null, null);
+		c.moveToFirst();
+		if(c.getCount()==0)
+			return new ArrayList<Uri>(0);
+		else{
+			List<Uri> l = new ArrayList<Uri>(0);
+			for(int i=0;i<c.getCount();i++){
+				c.moveToPosition(i);
+				File f = new File(c.getString(0));
+				if(f.exists())
+					l.add(Uri.parse(c.getString(0)));
+				else
+					deleteVoicerec(_id, Uri.parse(c.getString(0)));	//TODO
+			}
+			return l;
+		}
+	}
+	
 	
 	public boolean existsLocation(long _id, Location loc){
 		Cursor c = db.query("locations", new String[]{"_id"}, "_id="+_id+" and loc='"+loc.getLatitude()+" "+loc.getLongitude()+"'", null, null, null, null);
@@ -352,6 +425,7 @@ public class MediaNoteDB{
 		else{
 			List<Location> l = new ArrayList<Location>(0);
 			for(int i=0;i<c.getCount();i++){
+				c.moveToPosition(i);
 				Location loc = new Location("");
 				String[] split = c.getString(0).split(" ");
 				loc.setLatitude(Double.valueOf(split[0]));
@@ -371,6 +445,7 @@ public class MediaNoteDB{
 		mNote.setText(Html.fromHtml(text));
 		mNote.setImgList(getImages(_id, ctx));	// check if empty
 		mNote.setLocationsList(getLocations(_id));	// check if empty
+		mNote.setVoicerecList(getVoiceRecords(_id, ctx));
 	}
 	
 

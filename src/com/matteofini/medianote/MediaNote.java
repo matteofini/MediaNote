@@ -28,8 +28,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.text.Html;
-import android.text.Spanned;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -102,9 +100,10 @@ public class MediaNote extends ListActivity {
     		
     		CharSequence str = DateFormat.format("dd/MM/yy h:mmaa", mills);
     		date.setText(str);
-    		
+    		/*
     		String c_summ = c.getString(c.getColumnIndex("summary"));
 	    	if(c_summ!=null){
+	    		Log.i("summary", c_summ);
     			TextView summary = (TextView) v.findViewById(R.id.item_preview);
     			Spanned spanned = Html.fromHtml(c_summ);
     			if(spanned.length()>=20)
@@ -112,7 +111,7 @@ public class MediaNote extends ListActivity {
     			else
     				summary.setText(spanned);
 	    	}
-	    	
+	    	*/
     		OnClickListener view_ocl = new OnClickListener() {
 				long id = c.getLong(0);
     			@Override

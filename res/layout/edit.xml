@@ -2,12 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    android:background="#000"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:gravity="top"
     android:isScrollContainer="true"
-    android:padding="10dp" >
+    android:padding="10dp" style="@style/main_background">
 
     <EditText
         android:id="@+id/editlist_title"
@@ -65,7 +64,7 @@
             android:layout_alignParentTop="true"
             android:src="@drawable/ic_menu_cancel" />
     </RelativeLayout>
-
+
     <ScrollView
         android:id="@+id/scrollLayout1"
         android:layout_width="match_parent"
@@ -77,15 +76,13 @@
         android:isScrollContainer="true"
         android:scrollbarAlwaysDrawVerticalTrack="true"
         android:scrollbars="vertical" >
-
+
         <LinearLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" >
-
         </LinearLayout>
-
     </ScrollView>
 
 </RelativeLayout>

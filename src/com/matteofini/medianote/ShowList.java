@@ -26,8 +26,6 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.ComponentName;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Location;
 import android.net.Uri;
@@ -46,6 +44,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.ZoomControls;
 
 public class ShowList extends MediaNoteAbs{
 	private Note mNote;
@@ -88,66 +87,20 @@ public class ShowList extends MediaNoteAbs{
         	final LinearLayout container = (LinearLayout) rl.findViewById(R.id.container);
         	
         	if(!mNote.isTextEmpty()){
-        		RelativeLayout rl_content = (RelativeLayout) getLayoutInflater().inflate(R.layout.text, null);
-        		TextView text = (TextView) rl_content.findViewById(R.id.text);
-        		text.setText(mNote.getText());
-            	container.addView(rl_content);
-            	
-            	registerForContextMenu(text);
-				text.setOnCreateContextMenuListener(cmenu_text);
-				text.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						callTextEditor();
-					}
-				});
+        		ViewGroup text = layout_add_text(container, mNote.getText());
+            	container.addView(text);
         	}
-        	for (final Location loc : mNote.getLocationsList()) {
-        		RelativeLayout rl_loc = (RelativeLayout) getLayoutInflater().inflate(R.layout.location, null);
-				Address addr = reverseGeolocation(loc);	
-				CheckedTextView loc_label = (CheckedTextView) rl_loc.findViewById(R.id.loc_label);
-				String line="";
-				for(int j=0;j<addr.getMaxAddressLineIndex();j++){
-					line+=addr.getAddressLine(j)+" ";
-				}
-				loc_label.setText(line+" - "+addr.getCountryName());
-				//Address[addressLines=[0:"Via Alfredo Catalani, 15",1:"40069 Zola Predosa BO",2:"Italia"],feature=15,admin=Emilia Romagna,sub-admin=Bologna,locality=Zola Predosa,thoroughfare=Via Alfredo Catalani,postalCode=40069,countryCode=IT,countryName=Italia,hasLatitude=true,latitude=44.482682,hasLongitude=true,longitude=11.2435482,phone=null,url=null,extras=null]
-			
-        		OnClickListener loc_click = new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Intent i = new Intent(Intent.ACTION_VIEW);
-						i.setData(Uri.parse("geo:"+loc.getLatitude()+","+loc.getLongitude()+"?z=13"));
-						startActivity(i);
-					}
-				};
-				rl_loc.findViewById(R.id.loc_button).setOnClickListener(loc_click);
-				rl_loc.findViewById(R.id.loc_label).setOnClickListener(loc_click);
-				rl_loc.setTag(loc);
-        		container.addView(rl_loc);
-        		
-        		registerForContextMenu(rl_loc);
-        		rl_loc.findViewById(R.id.loc_label).setOnCreateContextMenuListener(create_cmenu_loc(rowid, loc));
+        	for (Location loc : mNote.getLocationsList()) {
+        		ViewGroup location = layout_add_location(container, loc, rowid);
+        		container.addView(location);
         	}
         	for(Uri uri : mNote.getImgList()){
-        		ImageView img = (ImageView) getLayoutInflater().inflate(R.layout.image, null);
-        		img.setImageBitmap(getScaledBitmap(uri));
-        		img.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        		img.setAdjustViewBounds(true);
-        		img.setTag(uri.toString());
-        		img.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Intent i = new Intent(Intent.ACTION_VIEW);
-						i.setData(uri);
-						startActivity(i);
-					}
-				});
-        		container.addView(img);
-        		
-        		//registerForContextMenu(img);
-        		OnCreateContextMenuListener ocl = create_cmenu_img(rowid, uri);
-        		img.setOnCreateContextMenuListener(ocl);
+        		View image = layout_add_image(container, uri, rowid);
+        		container.addView(image);
+        	}
+        	for(Uri uri : mNote.getVoicerecList()){
+        		ViewGroup voice = layout_add_voicerec(container, uri);
+        		container.addView(voice);
         	}
 
         	View b_cal = rl.findViewById(R.id.button_calendar);
@@ -170,6 +123,26 @@ public class ShowList extends MediaNoteAbs{
 					i.setComponent(new ComponentName(getApplicationContext(), EditList.class));
 					i.putExtra("id", rowid);
 					startActivity(i);
+				}
+			});
+        	
+        	ZoomControls zoom = (ZoomControls) rl.findViewById(R.id.zoomControls1);
+        	zoom.setOnZoomInClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					if(rl.findViewById(R.id.text)!=null){
+						TextView text = (TextView) rl.findViewById(R.id.text);
+						text.setTextSize(text.getTextSize()+1);
+					}
+				}
+			});
+        	zoom.setOnZoomOutClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					if(rl.findViewById(R.id.text)!=null){
+						TextView text = (TextView) rl.findViewById(R.id.text);
+						text.setTextSize(text.getTextSize()-1);
+					}
 				}
 			});
         }

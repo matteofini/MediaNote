@@ -1,81 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent" style="@style/main_background">
 
-    
-<RelativeLayout
+    <RelativeLayout
         android:id="@+id/activebar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/relativeLayout1"
         android:layout_alignParentLeft="true"
-        android:gravity="center">
+        android:gravity="center" >
 
         <Button
             android:id="@+id/button_bold"
+            style="@style/texteditor_buttons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:text="  B  "
-            android:textStyle="bold" 
-            style="@android:style/Widget.Button.Small"
-            android:paddingLeft="10dp" android:paddingRight="10dp"/>
+            android:text="  B  " />
 
         <Button
             android:id="@+id/button_italic"
+            style="@style/texteditor_buttons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/button_bold"
             android:text="  I  "
-            android:textStyle="italic" 
-            style="@android:style/Widget.Button.Small"
-            android:paddingLeft="10dp" android:paddingRight="10dp"/>
+            android:textStyle="italic" />
 
         <Button
             android:id="@+id/button_underline"
+            style="@style/texteditor_buttons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/button_italic"
-            android:text="  U  " 
-            style="@android:style/Widget.Button.Small"
-            android:paddingLeft="10dp" android:paddingRight="10dp"/>
+            android:text="  U  " />
 
         <Button
             android:id="@+id/button_strike"
+            style="@style/texteditor_buttons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/button_underline"
-            android:text="  S  " 
-            style="@android:style/Widget.Button.Small"
-            android:paddingLeft="10dp" android:paddingRight="10dp"/>
+            android:text="  S  " />
 
         <Button
             android:id="@+id/button_link"
+            style="@style/texteditor_buttons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/button_strike"
-            android:text="Link"
-            style="@android:style/Widget.Button.Small" 
-            android:paddingLeft="10dp" android:paddingRight="10dp"/>
-
+            android:text="Link" />
     </RelativeLayout>
-
-<EditText
-    android:id="@+id/edittext"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentRight="true"
-    android:layout_below="@+id/activebar"
-    android:inputType="textMultiLine" android:isScrollContainer="true" android:scrollbars="vertical" android:typeface="normal" android:minLines="3" android:gravity="top|left">
 
-    <requestFocus />
-</EditText>
+    <EditText
+        android:id="@+id/edittext"
+        style="@style/edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/activebar" android:maxLines="15">
+
+        <requestFocus />
+    </EditText>
+
+    <ImageButton
+        android:id="@+id/save"
+        style="@style/item_buttons_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_menu_ok" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/imageButton1"
+        android:layout_toRightOf="@+id/save"
+        android:gravity="bottom|right"
+        android:text="@string/label_texteditor"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#fafafa" />
 
 </RelativeLayout>
