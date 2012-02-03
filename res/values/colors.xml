@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="DarkOrange">#FF8C00</color>
-    <color name="VeryLightGrey">#CDCDCD</color>
-	<color name="DimGrey">#545454</color>
-	<color name="LightSkyBlue">#00a6ff</color>
-	<color name="DarkSkyBlue">#00c600</color>
-	<color name="Transparent">@android:color/transparent</color>
-	<color name="LightYellow">#FFFFE0</color>
-	<color name="DarkGreen">#006400</color>
-	<color name="DarkRed">#8B0000</color>
-	<color name="DarkGray">#ff8a8a8a</color>
+    
+    <color name="LightGrey">#fafafa</color>
+	<color name="DimGrey">#d5d6d7</color>
+	<color name="DarkGray">#8a8a8a</color>
+	
+	<color name="Transparent">#00000000</color>
+	
+	<color name="DarkViolet">#9933cc</color>
+	<color name="DarkOrange">#ff8800</color>
+	<color name="DarkBlue">#0099cc</color>
+	<color name="DarkGreen">#669900</color>
+	<color name="DarkRed">#cc0000</color>
+	
+	<color name="LightkViolet">#aa66cc</color>
+	<color name="LightOrange">#ffbb33</color>
+	<color name="LightBlue">#33b5e5</color>
+	<color name="LightGreen">#99cc00</color>
+	<color name="LightRed">#ff4444</color>
+	
+	
 </resources>

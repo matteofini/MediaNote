@@ -3,7 +3,7 @@
     android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:focusable="false" android:background="#fafafa">
+    android:focusable="false" android:background="@color/LightGrey">
 
     <RelativeLayout
         android:id="@+id/relativeLayout2"
@@ -49,6 +49,6 @@
         android:layout_alignParentTop="true"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
-        android:background="@color/LightSkyBlue" android:layout_marginRight="10dp"/>
+        android:background="@color/DarkBlue" android:layout_marginRight="10dp"/>
 
 </RelativeLayout>

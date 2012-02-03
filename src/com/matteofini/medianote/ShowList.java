@@ -26,7 +26,6 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.ComponentName;
 import android.content.Intent;
-import android.location.Address;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -35,13 +34,10 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnCreateContextMenuListener;
 import android.view.ViewGroup;
 import android.widget.CheckedTextView;
 import android.widget.DatePicker;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.ZoomControls;
@@ -99,7 +95,7 @@ public class ShowList extends MediaNoteAbs{
         		container.addView(image);
         	}
         	for(Uri uri : mNote.getVoicerecList()){
-        		ViewGroup voice = layout_add_voicerec(container, uri);
+        		ViewGroup voice = layout_add_voicerec(container, uri, rowid);
         		container.addView(voice);
         	}
 
@@ -134,6 +130,10 @@ public class ShowList extends MediaNoteAbs{
 						TextView text = (TextView) rl.findViewById(R.id.text);
 						text.setTextSize(text.getTextSize()+1);
 					}
+					if(rl.findViewById(R.id.location)!=null){
+						CheckedTextView ctv = (CheckedTextView) rl.findViewById(R.id.loc_label);
+						ctv.setTextSize(ctv.getTextSize()+1);
+					}
 				}
 			});
         	zoom.setOnZoomOutClickListener(new OnClickListener() {
@@ -142,6 +142,10 @@ public class ShowList extends MediaNoteAbs{
 					if(rl.findViewById(R.id.text)!=null){
 						TextView text = (TextView) rl.findViewById(R.id.text);
 						text.setTextSize(text.getTextSize()-1);
+					}
+					if(rl.findViewById(R.id.location)!=null){
+						CheckedTextView ctv = (CheckedTextView) rl.findViewById(R.id.loc_label);
+						ctv.setTextSize(ctv.getTextSize()-1);
 					}
 				}
 			});

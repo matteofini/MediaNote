@@ -3,55 +3,50 @@
     android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Transparent"
     android:orientation="vertical" >
 
     <View
         android:id="@+id/view1"
         android:layout_width="match_parent"
         android:layout_height="3dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
         android:background="@drawable/horiz_separator" />
-
-    <ViewFlipper
-        android:id="@+id/viewFlipper1"
+
+    <RelativeLayout
+        android:id="@+id/rl_blink"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/view1"
-        android:autoStart="true" >
+        android:layout_below="@+id/view1" >
 
-        <RelativeLayout
-            android:id="@+id/rl_blink"
+        <ImageView
+            android:id="@+id/imageView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal" >
+            android:contentDescription="@string/cd_recording_image"
+            android:src="@drawable/ic_menu_voicerec" />
 
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_menu_voicerec" />
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/imageView1"
+            android:text="@string/label_recording"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#cc0000" />
 
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/imageView1"
-                android:text="Recording..."
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="#cc0000" />
-        </RelativeLayout>
-    </ViewFlipper>
+    </RelativeLayout>
 
     <Button
         android:id="@+id/stop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/viewFlipper1"
+        android:layout_below="@+id/rl_blink"
         android:padding="20dp"
-        android:text="STOP"
+        android:text="@string/stop"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView

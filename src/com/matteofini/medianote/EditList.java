@@ -44,7 +44,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -140,7 +139,7 @@ public class EditList extends MediaNoteAbs {
     		content.addView(image);
     	}
     	for(Uri uri : mNote.getVoicerecList()){
-    		ViewGroup voice = layout_add_voicerec(content, uri);
+    		ViewGroup voice = layout_add_voicerec(content, uri, rowid);
     		content.addView(voice);
     	}
     	
@@ -259,7 +258,7 @@ public class EditList extends MediaNoteAbs {
 				try{
 					MR.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
 					MR.setOutputFormat(MediaRecorder.OutputFormat.RAW_AMR);
-					long _id = getIntent().getExtras().getLong("id");
+					final long _id = getIntent().getExtras().getLong("id");
 					final String extStorageDir = Environment.getExternalStorageDirectory().getAbsolutePath()+"/VoiceRecorder/";
 					final String name = "medianote_audio_"+_id+"_"+new Date().getTime()+".amr";
 					MR.setOutputFile(extStorageDir+name);
@@ -273,7 +272,7 @@ public class EditList extends MediaNoteAbs {
 							MR.stop();
 							d.dismiss();
 							LinearLayout content = (LinearLayout) getWindow().getDecorView().findViewById(R.id.container);
-							ViewGroup ll_voice = layout_add_voicerec(content, Uri.parse(extStorageDir+name));
+							ViewGroup ll_voice = layout_add_voicerec(content, Uri.parse(extStorageDir+name), _id);
 							mNote.addVoicerec(Uri.parse(extStorageDir+name));
 							content.addView(ll_voice);
 						}
@@ -283,7 +282,7 @@ public class EditList extends MediaNoteAbs {
 				}
 			}
 			else{
-				d.setTitle(R.string.title_dialog_audiocapture_error);
+				d.setTitle(R.string.error);
 				TextView tv = new TextView(this);
 				tv.setText(R.string.label_dialog_audiocapture_error);
 			}

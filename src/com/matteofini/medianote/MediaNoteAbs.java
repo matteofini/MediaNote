@@ -414,11 +414,11 @@ public abstract class MediaNoteAbs extends Activity{
 	 * @param name
 	 * @return
 	 */
-	protected ViewGroup layout_add_voicerec(ViewGroup parent_container, final Uri uri) {
+	protected ViewGroup layout_add_voicerec(ViewGroup parent_container, final Uri uri, long _id) {
 		RelativeLayout rl_voice = (RelativeLayout) getLayoutInflater().inflate(R.layout.voice, null);
 		CheckedTextView voice_label = (CheckedTextView) rl_voice.findViewById(R.id.voice_label);
 		voice_label.setText(uri.getLastPathSegment());
-		
+		rl_voice.setTag(uri.toString());
 		View.OnClickListener ocl = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -427,6 +427,8 @@ public abstract class MediaNoteAbs extends Activity{
 		};
 		voice_label.setOnClickListener(ocl);
 		rl_voice.findViewById(R.id.voice_button).setOnClickListener(ocl);
+		registerForContextMenu(voice_label);
+		voice_label.setOnCreateContextMenuListener(create_cmenu_voicerec(_id, uri));
 		return rl_voice;
 	}
 	
@@ -439,6 +441,7 @@ public abstract class MediaNoteAbs extends Activity{
 	protected ViewGroup layout_add_location(ViewGroup parent, final Location loc, long _id){
 		final RelativeLayout rl_loc = (RelativeLayout) getLayoutInflater().inflate(R.layout.location, null);
 		Address addr = reverseGeolocation(loc);
+		rl_loc.setTag(loc);
 		//Address[addressLines=[0:"Via Alfredo Catalani, 15",1:"40069 Zola Predosa BO",2:"Italia"],feature=15,admin=Emilia Romagna,sub-admin=Bologna,locality=Zola Predosa,thoroughfare=Via Alfredo Catalani,postalCode=40069,countryCode=IT,countryName=Italia,hasLatitude=true,latitude=44.482682,hasLongitude=true,longitude=11.2435482,phone=null,url=null,extras=null]
 		CheckedTextView loc_label = (CheckedTextView) rl_loc.findViewById(R.id.loc_label);
 		String line="";

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/LinearLayout1"
-    style="@android:style/Theme.Dialog"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -15,7 +14,7 @@
         android:lines="1"
         android:maxLines="1"
         android:selectAllOnFocus="true"
-        android:layout_margin="10dp" android:hint="Titolo">
+        android:layout_margin="10dp" android:hint="@string/dialog_addtitle_title">
 
         <requestFocus />
     </EditText>

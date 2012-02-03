@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/main_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusable="false"
-    android:gravity="center_horizontal" >
-
+    android:gravity="center_horizontal" android:background="@color/DimGrey">
+
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/separator"
-        android:contentDescription="lista delle note"
+        android:contentDescription="@string/cd_main_listview"
         android:fadeScrollbars="true"
         android:fadingEdge="none"
         android:focusable="false" >
@@ -34,6 +33,6 @@
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:layout_below="@id/button_addlist"
-        android:background="@color/LightSkyBlue" />
+        android:background="@color/DarkBlue" />
 
 </RelativeLayout>

@@ -53,7 +53,7 @@ public class Note {
 	}
 
 	public boolean isEmpty(){
-		return (mText.toString().equals("") && mImgURI.size()==0 && mLoc.size()==0);
+		return (mText.toString().equals("") && mImgURI.size()==0 && mLoc.size()==0 && mVoicerec.size()==0);
 	}
 	
 	public boolean isTextEmpty(){

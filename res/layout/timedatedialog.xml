@@ -31,9 +31,9 @@
             android:layout_alignParentRight="true" 
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </RelativeLayout>
-
+
     <RelativeLayout
-        android:id="@+id/RelativeLayout1"
+        android:id="@+id/RelativeLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
@@ -58,9 +58,9 @@
             android:layout_alignParentRight="true"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </RelativeLayout>
-
+
     <RelativeLayout
-        android:id="@+id/RelativeLayout1"
+        android:id="@+id/RelativeLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:text="OK" >
+            android:text="@string/ok">
         </Button>
     </RelativeLayout>
 

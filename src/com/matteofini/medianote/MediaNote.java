@@ -26,6 +26,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.text.format.DateFormat;
@@ -48,15 +50,12 @@ public class MediaNote extends ListActivity {
 	private static final int DIALOG_ADDTITLE = 0;
 	private Cursor mCursor;
 	private Vibrator VV;
-	
-	
-	
+		
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        
         VV = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         
         View b = findViewById(R.id.button_addlist);
@@ -178,6 +177,18 @@ public class MediaNote extends ListActivity {
     	private void delete(long id){
     		MediaNoteDB db = new MediaNoteDB(MediaNote.this);
 	        db.open();
+	        for(Uri uri : db.getImages(id, MediaNote.this)){
+	        	if(db.deleteImage(id, uri)>0)
+	        		Log.i("delete", "deleted all images");
+	        }
+	        for(Location loc : db.getLocations(id)){
+	        	if(db.deleteLocation(id, loc)>0)
+	        		Log.i("delete", "deleted all locations");
+	        }
+        	for(Uri uri : db.getVoiceRecords(id, MediaNote.this)){
+	        	if(db.deleteVoicerec(id, uri)>0)
+	        		Log.i("delete", "deleted all records");
+	        }
 	        int res = db.deleteList(id);
 	        Toast.makeText(getApplicationContext(), getResources().getString(R.string.list_deleted), Toast.LENGTH_SHORT).show();
 	        if(res>0) Log.i("MediaNote", "list with id "+id+" deleted");
