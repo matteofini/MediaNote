@@ -3,15 +3,17 @@
     android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:focusable="false" android:background="@color/LightGrey">
-
+    android:background="@color/LightGrey"
+    android:focusable="true" android:hapticFeedbackEnabled="true" android:soundEffectsEnabled="true" android:clickable="true">
+
     <RelativeLayout
         android:id="@+id/relativeLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:focusable="true"
         android:gravity="right"
-        android:padding="5dp">
+        android:padding="5dp" >
 
         <TextView
             android:id="@+id/item_date"
@@ -19,7 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"/>
+            android:layout_alignParentTop="true"
+            android:focusable="true" />
 
         <TextView
             android:id="@+id/item_title"
@@ -27,7 +30,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/item_date"/>
+            android:layout_below="@+id/item_date"
+            android:focusable="true"/>
 
         <TextView
             android:id="@+id/item_preview"
@@ -36,10 +40,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/item_title"
-            android:layout_marginLeft="10dp" />
-
+            android:layout_marginLeft="10dp"
+            android:focusable="true" />
     </RelativeLayout>
-
+
     <View
         android:id="@+id/vertSeparator"
         android:layout_width="3dp"
@@ -48,7 +52,9 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-        android:background="@color/DarkBlue" android:layout_marginRight="10dp"/>
+        android:background="@color/DarkBlue"
+        android:focusable="true" />
 
 </RelativeLayout>

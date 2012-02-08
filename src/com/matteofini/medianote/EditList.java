@@ -18,10 +18,10 @@
  */
 package com.matteofini.medianote;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import android.app.Dialog;
-import android.content.ComponentName;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Location;
@@ -34,6 +34,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Vibrator;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
@@ -42,6 +44,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.accessibility.AccessibilityEvent;
+import android.widget.ArrayAdapter;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -57,7 +61,16 @@ public class EditList extends MediaNoteAbs {
 	public static final int ACTIVITY_RESULT_TEXT = 1001;
 	public static final int ACTIVITY_RESULT_PHOTO = 1002;
 	public static final int ACTIVITY_RESULT_AUDIO = 1003;
+	//public static final int ACTIVITY_RESULT_VOICEREC = 1004;
+	public static final int ACTIVITY_RESULT_STT = 1005;
 	public static final int DIALOG_VOICEREC = 2004;
+	
+	
+	@Override
+	public boolean dispatchPopulateAccessibilityEvent(AccessibilityEvent event) {
+		// TODO Auto-generated method stub
+		return super.dispatchPopulateAccessibilityEvent(event);
+	}
 	
 	private LocationListener loclis = new LocationListener() {
 		@Override
@@ -192,10 +205,17 @@ public class EditList extends MediaNoteAbs {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getOrder()) {
 		case 1:{
+			/*
 			Intent i = new Intent();
 			i.setComponent(new ComponentName("com.matteofini.medianote", "com.matteofini.medianote.TextEditor"));
 			i.putExtra("id", getIntent().getExtras().getLong("id"));
 			startActivityForResult(i, ACTIVITY_RESULT_TEXT);
+			*/
+			SpeechRecognizer SR = SpeechRecognizer.createSpeechRecognizer(EditList.this);
+			Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+			i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+			i.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1);
+			startActivityForResult(i, ACTIVITY_RESULT_STT);
 		break;
 		}
 		case 2:{
@@ -333,6 +353,32 @@ public class EditList extends MediaNoteAbs {
 				registerForContextMenu(text);
 				text.setOnCreateContextMenuListener(cmenu_text_edit);
 			}
+		}
+		else if(requestCode==ACTIVITY_RESULT_STT){
+			 ArrayList<String> matches = data.getStringArrayListExtra(
+	                    RecognizerIntent.EXTRA_RESULTS);
+			 if(matches.size()>0){
+				 String bestmatch = matches.get(0);
+				 LinearLayout ll = (LinearLayout) getWindow().findViewById(R.id.container);
+					CheckedTextView text = null;
+					if((text = (CheckedTextView) ll.findViewById(R.id.text))!=null){
+						text.setText(Html.fromHtml(bestmatch));
+					}
+					else{
+						RelativeLayout rl_text = (RelativeLayout) getLayoutInflater().inflate(R.layout.text, null);
+						text = (CheckedTextView) rl_text.findViewById(R.id.text);
+						text.setText(Html.fromHtml(bestmatch));
+						ll.addView(rl_text);
+						text.setOnClickListener(new OnClickListener() {
+							@Override
+							public void onClick(View arg0) {
+								callTextEditor();
+							}
+						});
+						registerForContextMenu(text);
+						text.setOnCreateContextMenuListener(cmenu_text_edit);
+					}
+			 }
 		}
 	}
 	

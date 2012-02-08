@@ -8,8 +8,8 @@
         android:id="@+id/edit_link"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="http://"
-        android:inputType="textUri" >
+        android:hint="@string/dialog_link_hint"
+        android:inputType="textUri" android:contentDescription="@string/cd_link_edit">
 
         <requestFocus>
         </requestFocus>

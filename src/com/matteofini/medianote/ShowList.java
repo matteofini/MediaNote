@@ -175,7 +175,7 @@ public class ShowList extends MediaNoteAbs{
 		if(id==0){
 			AlertDialog.Builder adb = new AlertDialog.Builder(this);
 			AlertDialog ad = adb.create();
-			View v = getLayoutInflater().inflate(R.layout.timedatedialog, null);
+			View v = getLayoutInflater().inflate(R.layout.dialog_calendar, null);
 			ad.setView(v);
 			ad.setTitle("Imposta data e ora dell'evento");
 			

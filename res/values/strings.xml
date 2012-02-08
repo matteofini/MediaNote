@@ -1,60 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Media Note</string>
-    <string name="cd_main_listview">lista delle note</string>
     
+    <!-- title -->
+    <string name="dialog_addtitle_title">Titolo</string>
+    <string name="dialog_addtitle_hint">Inserisci il titolo</string>
     
-    <string name="label_addlist">Clicca per aggiungere una nuova nota</string>
-    <string name="label_dialog_addtitle">Titolo</string>
-    <string name="dialog_addtitle_title">Inserisci il titolo</string>
-    <string name="button_calendar">Aggiungi un evento al calendario</string>
-    <string name="dialog_datetime_title">Imposta data ed ora dell\'evento</string>
-    <string name="button_setdate">Imposta data</string>
-    <string name="button_settime">Imposta ora</string>
-    <string name="help_add_button">Clicca qui per aggiungere una nuova lista</string>
-    <string name="help_view">Clicca per leggere la lista</string>
-    <string name="help_edit">Clicca per modificare la lista</string>
-    <string name="help_delete">Clicca per cancellare la lista</string>
-    <string name="help_save">Clicca per salvare le modifiche al contenuto. Tutte le modifiche precedenti verranno sovrascritte</string>
-    <string name="help_cancel">Clicca per tornare indietro senza modificare nulla</string>
-    <string name="help_calendar">Clicca per aggiungere un evento al calendario</string>
-    <string name="help_help">Tenere premuto a lungo sui pulsanti per aiuto sulla funzione</string>
-    <string name="ask_save">Vuoi salvare le modifiche? Il contenuto verrà sovrascritto.</string>
-    
-    <string name="list_created">Lista creata</string>
-    <string name="list_deleted">Lista cancellata</string>
-   
-    <string name="button_add">Aggiungi nota</string>
-
-    <string name="hint_dialog_addtitle">Inserisci il titolo</string>
-    <string name="cd_dialog_addtitle">inserisci il titolo della nota</string>   
-    <string name="label_add_content">Clicca per aggiungere il contenuto</string>     
-      
-    <string name="label_texteditor">premi BACK per annullare</string>
-    <string name="title_dialog_audiocapture">Parla adesso&#8230;&#8230;&#8230;</string>
-    <string name="label_dialog_audiocapture">premi INDIETRO per annullare</string>
+    <!-- edit -->
+    <string name="titolo">Titolo</string>
+	<string name="content">Contenuto</string>
+	<string name="text_here">Inserisci il testo&#8230;&#8230;&#8230;</string>
 	
-	<string name="label_dialog_audiocapture_error">Memoria esterna non presente. Impossibile registrare.</string>
-
-	<string name="label_recording">Registrazione in corso&#8230;&#8230;&#8230;</string>
-	<string name="cd_recording_image">Registrazione in corso</string>
-	
-	<string name="stop">STOP</string>
-	<string name="titolo">Titolo</string>
-	<string name="save">Salva</string>
-    <string name="cancel">Annulla</string>
-    <string name="content">Contenuto</string>
-    <string name="error">Errore</string>
-    <string name="read">Leggi</string>
-    <string name="edit">Modifica</string>
-    <string name="delete">Elimina</string>
-    <string name="text_here">Testo qui&#8230;&#8230;&#8230;</string>
-    <string name="ok">OK</string>
-    
-    <string name="bold">  B  </string>
+	<!-- html editor -->
+	<string name="bold">  B  </string>
     <string name="italic">  I  </string>
     <string name="strike">  S  </string>
     <string name="underline">  U  </string>
-    <string name="link">Link</string>
+    <string name="link">Link</string>  
     
+    <!-- data ora -->
+    <string name="dialog_datetime">Aggiungi al calendario</string>
+    <string name="button_setdate">data</string>
+    <string name="button_settime">ora</string>
+    
+    <!-- link -->
+    <string name="dialog_link_hint">http://</string>
+    
+    <!-- audio -->
+    <string name="title_dialog_audiocapture">Parla adesso&#8230;&#8230;&#8230;</string>
+    <string name="label_dialog_audiocapture">premi INDIETRO per annullare</string>
+	<string name="label_dialog_audiocapture_error">Memoria esterna non presente. Impossibile registrare.</string>
+	<string name="label_recording">Registrazione in corso&#8230;&#8230;&#8230;</string>
+	<string name="cd_recording_image">Registrazione in corso</string>
+	<string name="stop">STOP</string>
+	
+	<!-- Toast -->
+	<string name="toast_note_deleted">nota cancellata</string>
+	<string name="toast_note_created">nota creata</string>
+	<string name="toast_texteditor_activity">Premi BACK per inserire il testo</string>
+
+	
+	<string name="ok">OK</string>
+    <string name="cancel">Annulla</string>
+    <string name="error">Errore</string>
+    
+    <!-- content descriptions -->
+    <string name="cd_main_listview">elenco delle note</string>
+    <string name="cd_main_button">aggiungi nota</string>
+    <string name="cd_showlist_title">titolo</string>
+    <string name="cd_showlist_date">data di creazione</string>
+    <string name="cd_showlist_content">contenuto</string>
+    <string name="cd_showlist_calendar">pulsante aggiungi evento al calendario</string>
+    <string name="cd_showlist_edit">pulsante modifica la nota</string>
+    <string name="cd_showlist_zoom">pulsante zoom del carattere</string>
+    <string name="cd_edit_title">campo di testo titolo</string>
+    <string name="cd_edit_content">contentuto. premi MENU per aggiungere del contenuto</string>
+    <string name="cd_edit_save">pulsante salva modifiche</string>
+    <string name="cd_edit_cancel">pulsante annulla modifiche</string>
+    <string name="cd_dialog_addtitle">campo di testo titolo</string>
+    <string name="cd_voicerec_stop">pulsante stop registrazione</string>
+    <string name="cd_calendar_date">pulsante modifica data</string>
+    <string name="cd_calendar_time">pulsante modifica ora</string>
+    <string name="cd_calendar_ok">pulsante ok</string>
+    <string name="cd_link_edit">campo di testo link</string>
+    <string name="cd_location_label">indirizzo</string>
+    <string name="cd_location_button">pulsante apri nella mappa</string>
+    <string name="cd_main_row">nota</string>   
 </resources>

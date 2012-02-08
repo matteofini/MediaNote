@@ -35,14 +35,13 @@
             android:orderInCategory="4"
             android:title="Insert Voice recording"
             android:titleCondensed="Voice"/>
-
+        
         <item
-            android:alphabeticShortcut="v"
-            android:icon="@drawable/ic_menu_attachment"
-            android:numericShortcut="5"
-            android:orderInCategory="5"
-            android:title="Attach from local memory"
-            android:titleCondensed="Attachments"/>
+            android:icon="@drawable/ic_menu_voicerec"
+            android:numericShortcut="4"
+            android:orderInCategory="4"
+            android:title="Insert Voice recording"
+            android:titleCondensed="Voice"/>
     </group>
 
 </menu>

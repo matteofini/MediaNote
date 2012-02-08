@@ -4,21 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#d5d6d7"
-    android:orientation="horizontal" android:paddingTop="20dp" android:paddingBottom="20dp">
-
+    android:focusable="false"
+    android:orientation="horizontal"
+    android:paddingBottom="20dp"
+    android:paddingTop="20dp" >
+
     <CheckedTextView
         android:id="@+id/loc_label"
+        style="@style/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@+id/loc_button"
-        style="@style/text"/>
-
+        android:focusable="true" android:contentDescription="@string/cd_location_label"/>
+
     <ImageButton
         android:id="@+id/loc_button"
+        style="@style/item_buttons_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:src="@drawable/ic_menu_position" style="@style/item_buttons_style"
-        android:layout_centerVertical="true"/>
+        android:layout_centerVertical="true"
+        android:focusable="true"
+        android:src="@drawable/ic_menu_position" android:contentDescription="@string/cd_location_button"/>
 
 </RelativeLayout>

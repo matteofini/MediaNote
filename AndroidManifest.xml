@@ -26,13 +26,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ShowList" />
-        <activity android:name=".EditList" />
-        <activity android:name=".TextEditor" />
+        <activity android:name=".ShowList" android:label="Show Note"/>
+        <activity android:name=".EditList" android:label="Edit Note"/>
+        <activity android:name=".TextEditor" android:label="Editor"/>
         <activity android:name="com.android.calendar.LaunchActivity" />
-        <activity android:name=".AudioCapture" />
-
-        <uses-library android:name="com.google.android.maps" />
     </application>
-
 </manifest>

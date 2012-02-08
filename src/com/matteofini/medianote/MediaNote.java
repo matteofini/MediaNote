@@ -18,6 +18,9 @@
  */
 package com.matteofini.medianote;
 
+import java.sql.Date;
+import java.util.Locale;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
@@ -30,7 +33,6 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -87,7 +89,7 @@ public class MediaNote extends ListActivity {
     	@Override
     	public View getView(final int position, View convertView, ViewGroup parent) {
      		View v = getLayoutInflater().inflate(R.layout.item, null);
-    		
+     		
     		final Cursor c = getCursor();
     		c.moveToPosition(position);
     		
@@ -95,22 +97,15 @@ public class MediaNote extends ListActivity {
     		title.setText(c.getString(c.getColumnIndex("title")));
     		
     		TextView date = (TextView) v.findViewById(R.id.item_date);
-    		int mills = c.getInt(c.getColumnIndex("date"));
+    		long mills = c.getLong(c.getColumnIndex("date"));
     		
-    		CharSequence str = DateFormat.format("dd/MM/yy h:mmaa", mills);
-    		date.setText(str);
-    		/*
-    		String c_summ = c.getString(c.getColumnIndex("summary"));
-	    	if(c_summ!=null){
-	    		Log.i("summary", c_summ);
-    			TextView summary = (TextView) v.findViewById(R.id.item_preview);
-    			Spanned spanned = Html.fromHtml(c_summ);
-    			if(spanned.length()>=20)
-    				summary.setText(spanned.subSequence(0, 20));
-    			else
-    				summary.setText(spanned);
-	    	}
-	    	*/
+    		java.text.DateFormat df = java.text.DateFormat.getDateTimeInstance(java.text.DateFormat.LONG, java.text.DateFormat.SHORT, Locale.getDefault());
+    		Date d = new Date(mills);
+    		
+    		//CharSequence str = DateFormat.format("dd/MM/yy kk:mm", mills);
+    		//date.setText(str);
+    		date.setText(df.format(d));
+    		
     		OnClickListener view_ocl = new OnClickListener() {
 				long id = c.getLong(0);
     			@Override
@@ -142,6 +137,7 @@ public class MediaNote extends ListActivity {
 							return true;
 						}
 					});
+					/*
 					menu.add("duplica lista e contenuto");
 					menu.getItem(2).setOnMenuItemClickListener(new OnMenuItemClickListener() {
 						@Override
@@ -155,6 +151,7 @@ public class MediaNote extends ListActivity {
 							return true;
 						}
 					});
+					*/
 				}
 			});
     		return v;
@@ -190,7 +187,7 @@ public class MediaNote extends ListActivity {
 	        		Log.i("delete", "deleted all records");
 	        }
 	        int res = db.deleteList(id);
-	        Toast.makeText(getApplicationContext(), getResources().getString(R.string.list_deleted), Toast.LENGTH_SHORT).show();
+	        Toast.makeText(getApplicationContext(), getResources().getString(R.string.toast_note_deleted), Toast.LENGTH_SHORT).show();
 	        if(res>0) Log.i("MediaNote", "list with id "+id+" deleted");
 	        db.close();
 	        mCursor.requery();
@@ -222,7 +219,7 @@ public class MediaNote extends ListActivity {
 						db.open();
 						long id = db.addList(str);
 						db.close();
-						Toast.makeText(getApplicationContext(), getResources().getString(R.string.list_created), Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplicationContext(), getResources().getString(R.string.toast_note_created), Toast.LENGTH_SHORT).show();
 						Log.i("MediaNote", "Lista creata con id "+id);
 						mCursor.requery();
 						setListAdapter(new MyAdapter(MediaNote.this, R.layout.item, mCursor, new String[]{"title", "date", "summary"}, new int[]{R.id.item_title, R.id.item_date, R.id.item_preview}));
