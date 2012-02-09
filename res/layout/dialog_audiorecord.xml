@@ -3,8 +3,7 @@
     android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:focusable="false"
-    android:orientation="vertical">
+    android:orientation="vertical" >
 
     <View
         android:id="@+id/view1"
@@ -12,23 +11,20 @@
         android:layout_height="3dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/horiz_separator"
-        android:focusable="false" />
-
+        android:background="@drawable/horiz_separator" />
+
     <RelativeLayout
         android:id="@+id/rl_blink"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/view1"
-        android:focusable="false" >
+        android:layout_below="@+id/view1" >
 
         <ImageView
             android:id="@+id/imageView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/cd_recording_image"
-            android:focusable="false"
             android:src="@drawable/ic_menu_voicerec" />
 
         <TextView
@@ -37,22 +33,21 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/imageView1"
-            android:focusable="false"
             android:text="@string/label_recording"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#cc0000" />
+
     </RelativeLayout>
-
+
     <Button
         android:id="@+id/stop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/rl_blink"
-        android:focusable="true"
         android:padding="20dp"
         android:text="@string/stop"
-        android:textAppearance="?android:attr/textAppearanceLarge" android:contentDescription="@string/cd_voicerec_stop"/>
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:id="@+id/textView2"
@@ -60,7 +55,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/stop"
         android:layout_centerHorizontal="true"
-        android:focusable="false"
-        android:text="@string/label_dialog_audiocapture" android:textColor="@color/DarkGray"/>
+        android:text="@string/label_dialog_audiocapture" />
 
 </RelativeLayout>

@@ -89,21 +89,8 @@ public class TextEditor extends Activity {
 			}
 		});
     	
-    	ll.findViewById(R.id.button_ok).setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				EditText edit = (EditText) getWindow().getDecorView().findViewById(R.id.edittext);
-				String html = Html.toHtml(edit.getText());
-				
-				Intent i = new Intent();
-				i.putExtra("id", getIntent().getExtras().getLong("id"));
-				i.putExtra("text", html);
-				setResult(EditList.ACTIVITY_RESULT_TEXT, i);
-			}
-		});
-    	
     	setContentView(ll);
-    	Toast.makeText(getApplicationContext(), R.string.toast_texteditor_activity, Toast.LENGTH_LONG).show();
+    	Toast.makeText(getApplicationContext(), R.string.label_texteditor, Toast.LENGTH_LONG).show();
 	}
 	
 	public void applyStyleBold(){
@@ -253,4 +240,17 @@ public class TextEditor extends Activity {
 		}
 		System.out.println(Html.toHtml(mEditContent.getText()));
 	}; 
+	
+	@Override
+	public void onBackPressed() {
+		EditText edit = (EditText) getWindow().getDecorView().findViewById(R.id.edittext);
+		String html = Html.toHtml(edit.getText());
+		
+		Intent i = new Intent();
+		i.putExtra("id", getIntent().getExtras().getLong("id"));
+		i.putExtra("text", html);
+		setResult(EditList.ACTIVITY_RESULT_TEXT, i);
+		super.onBackPressed();
+	}
+
 }

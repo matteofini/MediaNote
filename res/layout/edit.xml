@@ -2,12 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    android:background="@color/DimGrey"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:gravity="top"
     android:isScrollContainer="true"
-    android:padding="10dp" >
+    android:padding="10dp" android:background="@color/DimGrey">
 
     <EditText
         android:id="@+id/editlist_title"
@@ -16,8 +15,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/label_content"
-        android:contentDescription="@string/cd_edit_title"
-        android:focusable="true"
         android:hint="@string/titolo"
         android:inputType="text"
         android:maxLines="1" >
@@ -31,7 +28,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/editlist_title"
-        android:focusable="true"
         android:text="@string/content"
         android:textColor="@color/DarkBlue" />
 
@@ -42,7 +38,6 @@
         android:layout_alignBaseline="@+id/editlist_title"
         android:layout_alignBottom="@+id/editlist_title"
         android:layout_alignLeft="@+id/label_content"
-        android:focusable="true"
         android:text="@string/titolo"
         android:textColor="@color/DarkBlue" />
 
@@ -51,8 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:focusable="true" >
+        android:layout_alignParentLeft="true" >
 
         <ImageButton
             android:id="@+id/button_save"
@@ -61,8 +55,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:contentDescription="@string/cd_edit_save"
-            android:focusable="true"
             android:src="@drawable/ic_menu_ok" />
 
         <ImageButton
@@ -72,8 +64,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:contentDescription="@string/cd_edit_cancel"
-            android:focusable="true"
             android:src="@drawable/ic_menu_cancel" />
     </RelativeLayout>
 
@@ -85,7 +75,6 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/label_content"
         android:fadeScrollbars="false"
-        android:focusable="true"
         android:isScrollContainer="true"
         android:scrollbarAlwaysDrawVerticalTrack="true"
         android:scrollbars="vertical" >
@@ -94,8 +83,6 @@
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/cd_edit_content"
-            android:focusable="true"
             android:orientation="vertical" >
         </LinearLayout>
     </ScrollView>

@@ -55,7 +55,7 @@ public class MediaNoteDB{
 	
 	private class MediaNoteDbOpenHelper extends SQLiteOpenHelper{
 		public MediaNoteDbOpenHelper(Context context) {
-			super(context, NAME, null, VERSION);
+			super(context, Environment.getExternalStorageDirectory().getAbsolutePath()+"/data/com.matteofini.medianote/"+NAME, null, VERSION);
 		}
 		
 		@Override

@@ -2,10 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/DimGrey"
-    android:focusable="false"
     android:isScrollContainer="true"
-    android:padding="10dp" >
+    android:padding="10dp" android:background="@color/DimGrey">
 
     <TextView
         android:id="@+id/title"
@@ -13,9 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:contentDescription="@string/cd_showlist_title"
-        android:focusable="true" />
+        android:layout_alignParentTop="true" />
 
     <TextView
         android:id="@+id/date"
@@ -23,9 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/title"
-        android:contentDescription="@string/cd_showlist_date"
-        android:focusable="true" />
+        android:layout_below="@+id/title" />
 
     <ScrollView
         android:id="@+id/scrollView1"
@@ -36,15 +30,12 @@
         android:layout_below="@+id/date"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
-        android:focusable="false"
         android:scrollbarAlwaysDrawVerticalTrack="true" >
 
         <LinearLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/cd_showlist_content"
-            android:focusable="true"
             android:orientation="vertical" >
         </LinearLayout>
     </ScrollView>
@@ -56,9 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:contentDescription="@string/cd_showlist_calendar"
-        android:focusable="true"
-        android:src="@drawable/ic_menu_calendar" />
+        android:src="@drawable/ic_menu_bell" />
 
     <ImageButton
         android:id="@+id/button_edit2"
@@ -67,8 +56,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:contentDescription="@string/cd_showlist_edit"
-        android:focusable="true"
         android:src="@drawable/ic_menu_edit" />
 
     <LinearLayout
@@ -77,17 +64,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:focusable="false"
         android:orientation="horizontal" >
 
         <ZoomControls
             android:id="@+id/zoomControls1"
-            style="@style/item_buttons_style"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/cd_showlist_zoom"
-            android:focusable="true"
-            android:padding="0dp" />
+            android:layout_height="wrap_content" style="@style/item_buttons_style" android:padding="0dp"/>
     </LinearLayout>
 
 </RelativeLayout>
